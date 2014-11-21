@@ -1,0 +1,36 @@
+[%# Example template for cisco equipment config  -%] 
+[%#                                                                                   -%]
+[%#  USED VARIABLES - Defined in navlan.pl                                            -%]
+[%#   vlan_id = Numero da vlan criada (ex 661)                                        -%]
+[%#   vlan_name = Nome da Vlan a ser criada (ex Mirrors)                              -%]
+[%#   vlan_net = Primeiro endereço da rede (ex 172.16.61.0)                           -%]
+[%#   vlan_net_primeiro = Primeiro endereço da rede (ex 172.16.61.1)                  -%]
+[%#   vlan_net_ultimo = Ultimo endereço da rede (ex 172.16.61.254)                    -%]
+[%#   vlan_net_penultimo = Penultimo endereço da rede (ex 172.16.61.253)              -%]
+[%#   vlan_mask = Máscara da rede (ex 255.255.255.0)                                  -%]
+[%#   vlan_wildmask = Máscara de rede formato wildmask (ex 0.0.0.255)                 -%]
+[%#   acl_in = "vlan_name"."FE"."in" (ex MirrorsFEin)                                 -%]
+[%#   acl_out = "vlan_name"."FE"."out" (ex MirrorsFEout)                              -%]
+[%#                                                                                   -%]
+[% SET acl_in  = vlan_name _ "BEin"   -%]
+[% SET acl_out = vlan_name _ "BEout"  -%]
+!--------------------------------------------------------------------------------
+! Start:  Example config script
+!--------------------------------------------------------------------------------
+
+interface Vlan [%vlan_id%]
+ description [%vlan_name%]
+ ip address [%vlan_net_ultimo%] [%vlan_mask%]
+ no ip redirects
+ no shutdown
+ hsrp version 2
+ hsrp 1
+  preempt
+  priority 100
+  ip [%vlan_net_primeiro%]
+ end
+copy running-config startup-config
+
+!--------------------------------------------------------------------------------
+! End:  Example config script
+!--------------------------------------------------------------------------------
