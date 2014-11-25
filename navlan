@@ -1,0 +1,24 @@
+#!/bin/bash
+#Script wrapper para chamar navlan.pl com as permissoes corretas
+# Arquivo /etc/sudoers deve estar devidamente configurado
+
+LOGFILE='/tmp/navlan.log';
+TARGET='/my_path_to_project/navlan.pl';
+
+#Verifica arquivo de log
+if [ -f $LOGFILE ]; then
+	if [ ! -w $LOGFILE ]; then
+		echo "ERRO: Arquivo de log $LOGFILE sem permissoes de escrita."
+		exit 1
+	fi
+else
+	touch $LOGFILE
+	chmod 666 $LOGFILE
+fi
+echo "$(date): ${*}" >> $LOGFILE
+
+cd /my_path_to_project
+eval sudo -H -u backuper /usr/bin/perl $TARGET ${*}
+exit_code=$?
+cd - > /dev/null 2>&1
+exit $exit_code
