@@ -14,8 +14,8 @@ Requirements
  * Net::SNMP
 
 
-Relatives Projects
-------------------
+Related Projects
+----------------
 
 * [GloboNetworkAPI](https://github.com/globocom/GloboNetworkAPI)
 
