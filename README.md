@@ -1,9 +1,7 @@
 Globo NetworkAPI plugins - NAVlan
 =================================
 
-Overview
---------
-
+[Documentation](http://globonetworkapi.readthedocs.org/en/latest/definitions.html#plugin-roteiro)
 
 Requirements
 ------------
